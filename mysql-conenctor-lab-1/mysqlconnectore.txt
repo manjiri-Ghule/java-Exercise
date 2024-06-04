@@ -1,0 +1,38 @@
+#below will create the table 
+create database sonoo;  
+use sonoo;  
+create table emp(id int(10),name varchar(40),age int(3));  
+Show Tables;
+
+
+#below will insert the data in emp table 
+
+INSERT INTO emp (id, name, age) VALUES
+(1, 'John Doe', 30),
+(2, 'Jane Smith', 25),
+(3, 'Michael Johnson', 35),
+(4, 'Emily Brown', 28),
+(5, 'David Davis', 32);
+
+
+#create MysqlCon.java file then 
+
+
+import java.sql.*;  
+class MysqlCon{  
+public static void main(String args[]){  
+try{  
+Class.forName("com.mysql.jdbc.Driver");  
+Connection con=DriverManager.getConnection(  
+#to avoide that error "Unknown initial character set index '255' received from server , i have added "characterEncoding=utf8" "
+
+"jdbc:mysql://database-1.c5k6coggm21l.ap-south-1.rds.amazonaws.com:3306/sonoo?characterEncoding=utf8","admin","Login#12345");  
+//here sonoo is database name, root is username and password  
+Statement stmt=con.createStatement();  
+ResultSet rs=stmt.executeQuery("select * from emp");  
+while(rs.next())  
+	 System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getInt(3));  
+con.close();  
+}catch(Exception e){ System.out.println(e);}  
+}  
+}  
